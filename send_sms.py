@@ -9,15 +9,15 @@ load_dotenv()
 TWILIO_ACCOUNT_SID = os.getenv('TWILIO_ACCOUNT_SID')
 TWILIO_AUTH_TOKEN = os.getenv('TWILIO_AUTH_TOKEN')
 TWILIO_FROM_NUMBER = os.getenv('TWILIO_FROM_NUMBER')
-TO_NUMBER = os.getenv('TEST_TO_NUMBER') # Using the test number from .env
+TO_NUMBER = os.getenv('TEST_TO_NUMBER')
 
 # Initialize Twilio client
 client = Client(TWILIO_ACCOUNT_SID, TWILIO_AUTH_TOKEN)
 
-# Send SMS
+# Send Test SMS
 try:
     message = client.messages.create(
-        body="This is a test SMS from Twilio using environment variables!",
+        body="This is a test notification from your Emergency Response System.",
         from_=TWILIO_FROM_NUMBER,
         to=TO_NUMBER
     )

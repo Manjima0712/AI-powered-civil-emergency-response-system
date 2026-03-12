@@ -80,7 +80,8 @@ app.secret_key = os.environ.get('FLASK_SECRET_KEY', secrets.token_hex(16))
 
 def init_db():
     """Initialize the database with necessary tables"""
-    conn = sqlite3.connect('user_database.db')
+    db_path = os.path.join(os.path.dirname(__file__), 'user_database.db')
+    conn = sqlite3.connect(db_path)
     cursor = conn.cursor()
     
     # Users table
@@ -198,17 +199,13 @@ def send_reset_email(email, reset_token):
     
     
 
-# flood_model = joblib.load(r'C:\Users\USER\Desktop\arun\pro\rainfall.pkl')
-# landslide_model = joblib.load(r'C:\Users\USER\Desktop\arun\pro\landslidee.pkl')
-# earthquack_model = joblib.load(r'C:\Users\USER\Desktop\arun\pro\earthquack_model.pkl')
-# tornadoes_model = joblib.load(r"C:\Users\USER\Desktop\arun\pro\tornadoes.pkl")
-# tsunami_model = joblib.load(r'C:\Users\USER\Desktop\arun\pro\random_forest_tsunami_model.pkl')
-
-flood_model = joblib.load(r"E:\WEATHER_PREDICITION\disaster_prediciton\rainfall.pkl")
-landslide_model = joblib.load(r"E:\WEATHER_PREDICITION\disaster_prediciton\landslidee .pkl")
-earthquack_model = joblib.load(r"E:\WEATHER_PREDICITION\disaster_prediciton\earthquack_model.pkl")
-tornadoes_model = joblib.load(r"E:\WEATHER_PREDICITION\disaster_prediciton\tornadoes.pkl")
-tsunami_model = joblib.load(r"E:\WEATHER_PREDICITION\disaster_prediciton\random_forest_tsunami_model.pkl")
+# Load models using relative paths
+base_dir = os.path.dirname(__file__)
+flood_model = joblib.load(os.path.join(base_dir, "rainfall.pkl"))
+landslide_model = joblib.load(os.path.join(base_dir, "landslidee .pkl"))
+earthquack_model = joblib.load(os.path.join(base_dir, "earthquack_model.pkl"))
+tornadoes_model = joblib.load(os.path.join(base_dir, "tornadoes.pkl"))
+tsunami_model = joblib.load(os.path.join(base_dir, "random_forest_tsunami_model.pkl"))
 
 
 # Helper functions (same as before)
@@ -471,7 +468,8 @@ def register():
         hashed_password = generate_password_hash(password)
         
         try:
-            conn = sqlite3.connect('user_database.db')
+            db_path = os.path.join(os.path.dirname(__file__), 'user_database.db')
+            conn = sqlite3.connect(db_path)
             cursor = conn.cursor()
             
             # Insert user
@@ -509,7 +507,8 @@ def login():
         email = request.form['email']
         password = request.form['password']
         
-        conn = sqlite3.connect('user_database.db')
+        db_path = os.path.join(os.path.dirname(__file__), 'user_database.db')
+        conn = sqlite3.connect(db_path)
         cursor = conn.cursor()
         
         cursor.execute('SELECT id, email, password,username FROM users WHERE email = ?', (email,))
@@ -587,7 +586,8 @@ def admin_logout():
 @app.route('/admin/dashboard')
 @admin_required
 def admin_dashboard():
-    conn = sqlite3.connect('user_database.db')
+    db_path = os.path.join(os.path.dirname(__file__), 'user_database.db')
+    conn = sqlite3.connect(db_path)
     cursor = conn.cursor()
     cursor.execute('SELECT * FROM users ORDER BY created_at DESC')
     users = cursor.fetchall()
@@ -599,7 +599,8 @@ def admin_dashboard():
 @app.route('/admin/users')
 @admin_required
 def admin_users():
-    conn = sqlite3.connect('user_database.db')
+    db_path = os.path.join(os.path.dirname(__file__), 'user_database.db')
+    conn = sqlite3.connect(db_path)
     cursor = conn.cursor()
     cursor.execute('SELECT * FROM users ORDER BY created_at DESC')
     users = cursor.fetchall()
@@ -611,7 +612,8 @@ def admin_users():
 @app.route('/admin/user/edit/<int:user_id>', methods=['GET', 'POST'])
 @admin_required
 def admin_edit_user(user_id):
-    conn = sqlite3.connect('user_database.db')
+    db_path = os.path.join(os.path.dirname(__file__), 'user_database.db')
+    conn = sqlite3.connect(db_path)
     cursor = conn.cursor()
     
     if request.method == 'POST':
@@ -644,7 +646,8 @@ def admin_edit_user(user_id):
 @app.route('/admin/user/delete/<int:user_id>', methods=['POST'])
 @admin_required
 def admin_delete_user(user_id):
-    conn = sqlite3.connect('user_database.db')
+    db_path = os.path.join(os.path.dirname(__file__), 'user_database.db')
+    conn = sqlite3.connect(db_path)
     cursor = conn.cursor()
     
     try:
@@ -666,7 +669,8 @@ def admin_delete_user(user_id):
 def admin_search():
     query = request.args.get('q', '')
     
-    conn = sqlite3.connect('user_database.db')
+    db_path = os.path.join(os.path.dirname(__file__), 'user_database.db')
+    conn = sqlite3.connect(db_path)
     cursor = conn.cursor()
     
     cursor.execute('''
@@ -682,7 +686,8 @@ def admin_search():
 
 # Initialize the database
 def init_db():
-    conn = sqlite3.connect('user_database.db')
+    db_path = os.path.join(os.path.dirname(__file__), 'user_database.db')
+    conn = sqlite3.connect(db_path)
     cursor = conn.cursor()
     
     # Users table
@@ -834,15 +839,10 @@ def handle_delete_message(data):
     # Notify all clients to remove the message from their UI
     emit('message_deleted', {'messageId': message_id}, broadcast=True)
 
-    
-    
-CORS(app)
 
 # Database Configuration
-
-
-# Database Configuration
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///emergency.db'
+db_path = os.path.join(os.path.dirname(__file__), 'instance', 'emergency.db')
+app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{db_path}'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 

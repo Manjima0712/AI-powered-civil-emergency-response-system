@@ -278,8 +278,8 @@
                                 // Update dot color based on hazard conditions
                                 const isHazard = checkHazardConditions(
                                     '{{ flood_result }}',
-                                    {{ earthquake_result | tojson }},
-                                    {{ tsunami_result | tojson }},
+                                    JSON.parse('{{ earthquake_result | tojson | safe }}'),
+                                    JSON.parse('{{ tsunami_result | tojson | safe }}'),
                                     '{{ landslide_result }}',
                                     '{{ tornado_result }}'
                                 );
@@ -541,19 +541,25 @@
 
 
 <script>
-    // Add this JavaScript
     function updateLocationStatus() {
         const locationCircle = document.querySelector('.location-circle');
+        if (!locationCircle) return;
         
+        // Pass data safely from Jinja to JS
+        const flood = '{{ flood_result }}';
+        const quake = JSON.parse('{{ earthquake_result | tojson | safe }}');
+        const tsunami = JSON.parse('{{ tsunami_result | tojson | safe }}');
+        const landslide = '{{ landslide_result }}';
+        const cyclone = '{{ tornado_result }}';
+
         // Check emergency conditions
         const hasEmergency = 
-            '{{ flood_result }}' === 'flood' ||
-            ({{ earthquake_result[1] if earthquake_result else 0 }} > 6) ||
-            ({{ tsunami_result[1] if tsunami_result else 0 }} > 6.9) ||
-            '{{ landslide_result }}' === 'Landslide' ||
-            '{{ tornado_result }}' === 'Considerable Cyclone';
+            flood === 'flood' ||
+            (Array.isArray(quake) && quake.length > 1 && quake[1] > 6) ||
+            (Array.isArray(tsunami) && tsunami.length > 1 && tsunami[1] > 6.9) ||
+            landslide === 'Landslide' ||
+            cyclone === 'Considerable Cyclone';
     
-        // Update circle state
         if (hasEmergency) {
             locationCircle.classList.add('emergency');
         } else {
@@ -561,13 +567,8 @@
         }
     }
     
-    // Run on page load
     document.addEventListener('DOMContentLoaded', updateLocationStatus);
-    </script>
-    Last edited just n
-    // Run on page load
-    document.addEventListener('DOMContentLoaded', updateLocationStatus);
-    </script>
+</script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
