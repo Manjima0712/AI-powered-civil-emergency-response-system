@@ -1,0 +1,358 @@
+
+body {
+    /* background-image: url('/static/Materials/background.webp');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed; */
+    background-color: rgb(36, 33, 33);
+}
+.navbar {
+    background-color: rgba(0, 0, 0, 0.4) !important;
+}
+.weather-card {
+    background-color: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
+}
+.temp-image {
+    position: relative;
+    width: 150px;
+    height: 150px;
+}
+.cloud-img {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+.sun-img {
+    position: absolute;
+    width: 60%;
+    height: 60%;
+    object-fit: contain;
+    left: 20%;
+    top: 0%;
+    z-index: -1;
+    animation: rotate 7s linear infinite;
+}
+@keyframes rotate {
+    100% { transform: rotate(360deg); }
+}
+.location-icon {
+    width: 24px;
+    height: 24px;
+    margin-right: 8px;
+}
+.weather-details {
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+}
+.map-container {
+    height: 400px;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 10px 24px 16px rgba(0, 0, 0, 0.5);
+    border: groove 4px rgb(14, 32, 55,0.5);
+}
+a{
+    color: aliceblue;
+}
+input[type=search]::placeholder{
+    color: rgb(116, 115, 115);
+}
+.offcanvas{
+    background-color: rgba(0, 0, 0, 0.8) !important;
+}
+i{
+    font-size: 24px;
+    color: white;
+}
+.daily-data{
+    background-color: rgba(0, 0, 0, 0.4) !important;
+    box-shadow: 0 14px 16px rgba(0, 0, 0, 0.5) !important;
+}
+.card-title{
+    font-size: 1.5rem ;
+    font-weight:300px;
+    margin-bottom: 10px;
+}
+.alert-green{
+    background-color: rgba(1, 92, 1, 0.329);
+    color: rgb(241, 241, 241);
+    border-color: rgb(26, 133, 38);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
+}
+.update-bar {
+    position: relative;
+    width: 100%;
+    z-index: 1000;
+    font-size: 16px;
+}
+
+.update-text {
+    white-space: nowrap;
+    overflow: hidden;
+    width: 100%;
+    position: relative;
+}
+
+.update-text span {
+    display: inline-block;
+    padding-left: 100%;
+    animation: scroll-left 40s linear infinite;
+}
+
+@keyframes scroll-left {
+    0% {
+        transform: translateX(100%);
+    }
+    10%{
+        transform:translateX(10%);
+    }
+    90%{
+        transform: translateX(-90%);
+    }
+    100% {
+        transform: translateX(-100%);
+    }
+}
+.emergency{
+    white-space: nowrap;
+}
+
+.grid-background {
+    width: 100%;
+    height: 450px;
+    background-color: #0a0a0a;
+    position: relative;
+    perspective: 1000px;
+    overflow: hidden;
+    border-radius: 8px;
+}
+
+.grid {
+    position: absolute;
+    width: 200%;
+    height: 200%;
+    background-image: linear-gradient(90deg, 
+        rgba(255, 255, 255, 0.1) 1px, 
+        transparent 1px), 
+    linear-gradient(rgba(255, 255, 255, 0.1) 1px, 
+        transparent 1px);
+    background-size: 50px 50px;
+    transform-origin: center center;
+}
+
+.grid.x {
+    transform: rotateX(60deg) translateY(-50%) translateZ(-100px);
+}
+
+.grid.y {
+    transform: rotateY(60deg) translateX(-50%) translateZ(-100px);
+}
+
+.grid.z {
+    transform: rotateZ(45deg) translateX(-50%) translateY(-50%);
+}
+
+.location-circle {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 120px;
+    height: 120px;
+    background: radial-gradient(circle at 30% 30%, 
+        rgba(255, 255, 255, 0.2), 
+        rgba(255, 255, 255, 0.05));
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 
+        inset 0 0 20px rgba(255, 255, 255, 0.2),
+        0 0 30px rgba(6, 241, 92, 0.87);
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
+}
+
+.person-icon {
+    font-size: 48px;
+    color: #c2c9c4; /* Default green color */
+    transition: all 0.3s ease;
+    filter: drop-shadow(0 0 10px rgba(10, 10, 10, 0.5));
+}
+
+/* Emergency state */
+.location-circle.emergency {
+    box-shadow: 
+        inset 0 0 20px rgba(255, 255, 255, 0.2),
+        0 0 30px rgba(231, 41, 41, 0.911);
+    
+}
+
+.location-circle.emergency, .person-icon {
+
+    animation: pulse 2s infinite;
+  
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    50% {
+        transform: scale(1.2);
+        opacity: 0.7;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+/* Add subtle movement to the grid */
+@keyframes gridMove {
+    0% {
+        transform: translateX(0) translateY(0);
+    }
+    50% {
+        transform: translateX(-25px) translateY(-25px);
+    }
+    100% {
+        transform: translateX(0) translateY(0);
+    }
+}
+
+.grid {
+    animation: gridMove 20s infinite linear;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+#about {
+    background-color: #333;  /* You can change the background color as needed */
+    color: white;  /* Set the text color to white */
+    padding: 30px 0;
+    text-align: center;
+    
+}
+
+#about h1,
+#about h2,
+#about p,
+#about ul {
+    color: white; 
+    text-align: center;
+    /* Ensure all text inside About section is white */
+}
+
+#about ul {
+    list-style-type: none;  /* Optional: Remove list bullet points */
+}
+
+#about li {
+    margin-bottom: 10px;  /* Optional: Space between list items */
+}
+
+
+
+:root {
+    --user-location-color: #18e94c;
+}
+/* Map container styles */
+.map-container {
+    position: relative;
+    width: 100%;
+    height: 380px;
+    background: #1a1a1a;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+#map {
+    position: absolute !important;
+    top: 0;
+    left: 0;
+    width: 100% !important;
+    height: 100% !important;
+    border-radius: 15px;
+}
+
+/* Control styles */
+.mapboxgl-control-container {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+}
+
+.mapboxgl-ctrl-group {
+    background: rgba(35, 35, 35, 0.9) !important;
+    border: none !important;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    margin: 10px;
+}
+
+.mapboxgl-ctrl-group button {
+    background-color: transparent !important;
+    border: none !important;
+    color: white !important;
+    width: 30px;
+    height: 30px;
+}
+
+.mapboxgl-ctrl-icon {
+    filter: invert(1);
+}
+
+/* Custom user location dot */
+.mapboxgl-user-location-dot {
+    background-color: rgb(13, 84, 238);
+}
+
+.mapboxgl-user-location-dot:before {
+    background-color: var(--user-location-color);
+    width: 15px;
+    height: 15px;
+    transition: background-color 0.3s ease;
+}
+
+.mapboxgl-user-location-dot:after {
+    width: 15px;
+    height: 15px;
+}
+
+/* Remove attribution */
+.mapboxgl-ctrl-bottom-right,
+.mapboxgl-ctrl-bottom-left {
+    display: none;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1200px) {
+    .map-container {
+        height: 500px;
+    }
+}
+
+@media (max-width: 992px) {
+    .map-container {
+        height: 450px;
+    }
+}
+
+@media (max-width: 768px) {
+    .map-container {
+        height: 400px;
+    }
+}
+
+/* Remove previous grid elements */
+.grid-background,
+.grid,
+.location-circle {
+    display: none;
+}

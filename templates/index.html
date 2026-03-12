@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+    <link rel="stylesheet" href="{{url_for("static",filename="Home.css")}}">
+    <link rel="stylesheet" href="{{url_for("static",filename="chat.css")}}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <link rel="stylesheet" href="https://site-assets.fontawesome.com/releases/v6.4.0/css/all.css">
+
+    </head>
+
+
+<body>
+
+    <!-- Navbar Section -->
+    <nav class="navbar navbar-expand-lg navbar-dark p-4">
+        <div class="container justify-content-center">
+            <a class="navbar-brand fs-3" href="#">Weather</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <a href="#about" class="py-2 px-4 text-gray-700 hover:text-gray-900 text-decoration-none">About</a>
+
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+                   <li><button class="btn btn-outline-light ms-3" type="button" data-bs-toggle="offcanvas"
+                    data-bs-target="#offcanvasNews" aria-controls="offcanvasNews">
+                    <i class="fas fa-newspaper pe-2"></i> Latest News</button></li>
+                </ul>
+                <div style="display:flex;">
+                    <a href="/admin/dashboard" class="text-decoration-none py-2 px-4 text-gray-700 hover:text-gray-900">Admin Dashboard</a>
+
+                    {% if session.get('user_id') %}
+                    <a href="/Signout" class="py-2 px-4 bg-red-500 text-white rounded hover:bg-red-600 text-decoration-none">Logout</a>
+                    <li class="username text-warning mt-2 " style="list-style-type:none;"><span class="fas fa-user pe-2"></span><span id="u_name">{{session.get('username')}}</span></li>
+                    {% else %}
+                        <a href="/signin" class="py-2 px-4 text-gray-700 hover:text-gray-900 text-decoration-none">Login</a>
+                    {% endif %}
+                </div>
+                </div>
+        </div>
+    </nav>
+    
+    <!--SOS animation Update-->
+    <div class="bg-warning bg-opacity-75 text-dark p-2 update-bar">
+        <div class="container">
+            <div class="d-flex align-items-center">
+                <strong class="me-2 emergency"><i class="fas fa-phone text-dark " aria-hidden="true"></i>
+                    Help:</strong>
+                <div class="update-text">
+                    <span><b>Thiruvananthapuram: </b>0471-2730045 <b>Kollam: </b>0474-2794002 <b>Pathanamthitta:
+                        </b>0468-2322515
+                        <b>Alappuzha: </b>0477-2238630 <b>Kottayam: </b>0481-2566300 <b>Idukki: </b>0486-2233111 </span>
+                </div>
+            </div>
+        </div>
+    </div>
+     <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNews" aria-labelledby="offcanvasNewsLabel">
+        <div class="offcanvas-header mb-4">
+            <h5 class="offcanvas-title text-white" id="offcanvasNewsLabel">News</h5>
+            <button type="button" class="btn-close btn-close-white close-button" data-bs-dismiss="offcanvas"
+                aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+            <ul class="list-unstyled">
+                <li class="d-flex mb-3 align-items-start border-bottom pb-3">
+                    <i class="fas fa-cloud-sun fa-2x me-3"></i>
+                    <div>
+                        <a href="#" class="text-decoration-none">
+                            <h6 class="mb-1">Sunny Days Ahead</h6>
+                            <p class="small mb-0">Clear skies expected this weekend.</p>
+                        </a>
+                    </div>
+                </li>
+                <li class="d-flex mb-3 align-items-start border-bottom pb-3">
+                    <i class="fas fa-wind fa-2x me-3"></i>
+                    <div>
+                        <a href="#" class="text-decoration-none">
+                            <h6 class="mb-1">Windy Conditions</h6>
+                            <p class="small mb-0">Strong winds expected in coastal areas.</p>
+                        </a>
+                    </div>
+                </li>
+                <li class="d-flex mb-3 align-items-start border-bottom pb-3">
+                    <i class="fas fa-temperature-high fa-2x me-3"></i>
+                    <div>
+                        <a href="" class="text-decoration-none">
+                            <h6 class="mb-1">Heatwave Alert</h6>
+                            <p class="small mb-0">Temperatures expected to rise above normal.</p>
+                        </a>
+                    </div>
+                </li>
+                <li class="d-flex mb-3 align-items-start border-bottom pb-3">
+                    <i class="fas fa-tint fa-2x me-3"></i>
+                    <div>
+                        <a href="#" class="text-decoration-none">
+                            <h6 class="mb-1">Heavy Rainfall</h6>
+                            <p class="small mb-0">Thunderstorms predicted in the evening.</p>
+                        </a>
+                    </div>
+                </li>
+                <div class="collapse" id="moreText">
+                    <li class="d-flex mb-3 align-items-start border-bottom pb-3"><i class="fas fa-globe fa-2x me-3"></i>
+                        <div>
+                            <a href="https://en.wikipedia.org/wiki/2024_Wayanad_landslides" target="_blank"
+                                class="text-decoration-none">
+                                <h6 class="mb-1">Wayanad Landslide</h6>
+                                <p class="small mb-0">Wayanad LandSlide happens on 2024.</p>
+                            </a>
+                        </div>
+                </div>
+            </ul>
+            <a class="btn btn-outline-light" data-bs-toggle="collapse" href="#moreText" role="button"
+                aria-expanded="false" aria-controls="moreText">Read More</a>
+
+        </div>
+    </div>
+
+
+    <!-- Offcanvas Sidebar for Latest News -->
+    <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNews" aria-labelledby="offcanvasNewsLabel">
+        <div class="offcanvas-header mb-4">
+            <h5 class="offcanvas-title text-white" id="offcanvasNewsLabel">News</h5>
+            <button type="button" class="btn-close btn-close-white close-button" data-bs-dismiss="offcanvas"
+                aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+            <ul class="list-unstyled">
+                <li class="d-flex mb-3 align-items-start border-bottom pb-3">
+                    <i class="fas fa-cloud-sun fa-2x me-3"></i>
+                    <div>
+                        <a href="#" class="text-decoration-none">
+                            <h6 class="mb-1">Sunny Days Ahead</h6>
+                            <p class="small mb-0">Clear skies expected this weekend.</p>
+                        </a>
+                    </div>
+                </li>
+                <li class="d-flex mb-3 align-items-start border-bottom pb-3">
+                    <i class="fas fa-wind fa-2x me-3"></i>
+                    <div>
+                        <a href="#" class="text-decoration-none">
+                            <h6 class="mb-1">Windy Conditions</h6>
+                            <p class="small mb-0">Strong winds expected in coastal areas.</p>
+                        </a>
+                    </div>
+                </li>
+                <li class="d-flex mb-3 align-items-start border-bottom pb-3">
+                    <i class="fas fa-temperature-high fa-2x me-3"></i>
+                    <div>
+                        <a href="" class="text-decoration-none">
+                            <h6 class="mb-1">Heatwave Alert</h6>
+                            <p class="small mb-0">Temperatures expected to rise above normal.</p>
+                        </a>
+                    </div>
+                </li>
+                <li class="d-flex mb-3 align-items-start border-bottom pb-3">
+                    <i class="fas fa-tint fa-2x me-3"></i>
+                    <div>
+                        <a href="#" class="text-decoration-none">
+                            <h6 class="mb-1">Heavy Rainfall</h6>
+                            <p class="small mb-0">Thunderstorms predicted in the evening.</p>
+                        </a>
+                    </div>
+                </li>
+                <div class="collapse" id="moreText">
+                    <li class="d-flex mb-3 align-items-start border-bottom pb-3"><i class="fas fa-globe fa-2x me-3"></i>
+                        <div>
+                            <a href="https://en.wikipedia.org/wiki/2024_Wayanad_landslides" target="_blank"
+                                class="text-decoration-none">
+                                <h6 class="mb-1">Wayanad Landslide</h6>
+                                <p class="small mb-0">Wayanad LandSlide happens on 2024.</p>
+                            </a>
+                        </div>
+                </div>
+            </ul>
+            <a class="btn btn-outline-light" data-bs-toggle="collapse" href="#moreText" role="button"
+                aria-expanded="false" aria-controls="moreText">Read More</a>
+
+        </div>
+    </div>
+
+    <!-- Add Mapbox GL JS CSS -->
+
+
+    <!DOCTYPE html>
+<div class="container mx-auto px-4">
+  
+
+    <!-- Keep the flash messages section -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="mb-4 p-4 rounded alert alert-primary
+                    {% if category == 'error' %}bg-red-100 text-red-700 border border-red-400
+                    {% elif category == 'success' %}bg-green-100 text-green-700 border border-green-400
+                    {% else %}bg-blue-100 text-blue-700 border border-blue-400{% endif %}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+    {% block content %}{% endblock %}
+</div>
+
+    <!-- Main Content -->
+<!-- Weather Map Section -->
+<div class="container mt-5">
+    <div class="row">
+        <!-- Weather Map Section -->
+
+                <!-- Weather Map Section -->
+                <div class="col-lg-8 mb-4">
+                    <div class="map-container">
+                        <!-- Add Mapbox GL JS CSS -->
+                        <link href='https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.css' rel='stylesheet' />
+                        
+                        <!-- Map container -->
+                        <div id="map" class="weather-map"></div>
+                        <script src='https://api.mapbox.com/mapbox-gl-js/v2.14.1/mapbox-gl.js'></script>
+                
+                        <script>
+                            // Initialize the map
+                            mapboxgl.accessToken = '{{ mapbox_token }}';
+                            
+                            const map = new mapboxgl.Map({
+                                container: 'map',
+                                style: 'mapbox://styles/mapbox/dark-v11',
+                                zoom: 15,
+                                width: '100%',
+                                height: '100%'
+                            });
+        
+                            // Function to check hazard conditions
+                            function checkHazardConditions(flood, earthquake, tsunami, landslide, tornado) {
+                                return flood === 'flood' || 
+                                       (earthquake && earthquake[1] > 6) || 
+                                       (tsunami && tsunami[1] > 6.9) || 
+                                       landslide === 'Landslide' || 
+                                       tornado === 'Considerable Cyclone';
+                            }
+        
+                            // Add navigation controls
+                            map.addControl(new mapboxgl.NavigationControl(), 'top-right');
+        
+                            // Add geolocate control
+                            const geolocate = new mapboxgl.GeolocateControl({
+                                positionOptions: {
+                                    enableHighAccuracy: true
+                                },
+                                trackUserLocation: true,
+                                showUserHeading: true,
+                                showAccuracyCircle: true,
+                                maxZoom: 18
+                            });
+                            map.addControl(geolocate, 'top-right');
+        
+                            // Trigger geolocation on map load
+                            map.on('load', () => {
+                                geolocate.trigger();
+                            });
+        
+                            // Handle location updates
+                            geolocate.on('geolocate', (e) => {
+                                const { latitude, longitude } = e.coords;
+                                map.flyTo({
+                                    center: [longitude, latitude],
+                                    zoom: .90,
+                                    essential: true
+                                });
+        
+                                // Update dot color based on hazard conditions
+                                const isHazard = checkHazardConditions(
+                                    '{{ flood_result }}',
+                                    {{ earthquake_result | tojson }},
+                                    {{ tsunami_result | tojson }},
+                                    '{{ landslide_result }}',
+                                    '{{ tornado_result }}'
+                                );
+        
+                                // Apply appropriate color class
+                                document.documentElement.style.setProperty(
+                                    '--user-location-color', 
+                                    isHazard ? '#ff0000' : '#18e94c'
+                                );
+                            });
+                        </script>
+                    </div>
+                </div>
+                <link rel="stylesheet" href="{{url_for("static",filename="map.css")}}">
+
+        <!-- Weather Details Section -->
+        <div class=" col-lg-4">
+            <div class="weather-card text-white p-4">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <div>
+                        <h2 class="fs-4" id="location">{{ data.location }}</h2>
+                    </div>
+                    <div>
+                        <i class="{{ data.icon_class}}" style="font-size:3em; margin-right:1em"></i>
+                    </div>
+                </div>
+                <div>
+                    <h5 class="text-center">{{ data.date }}</h5>
+                </div>
+                <div class="text-center mb-4">
+                    <h1 id="temperature" class="display-1 mb-0">{{ data.temperature }}°C</h1>
+                    <span id="condition">{{ data.condition }}</span>
+                </div>
+                <div class="weather-details pt-3">
+                    <div class="row">
+                        <div class="col-4 text-center">
+                            <div>Wind</div>
+                            <span id="wind-speed">{{ data.wind_speed }} KM/h</span>
+                        </div>
+                        <div class="col-4 text-center">
+                            <div>Humidity</div>
+                            <span id="humidity-value">{{ data.humidity }}%</span>
+                        </div>
+                        <div class="col-4 text-center">
+                            <div>Updated</div>
+                            <span id="last-updated">{{ data.last_updated }}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+        <!-- Weather Forecast Section -->
+        <div class="container">
+            <div class="row text-center justify-content-center pt-3">
+                <!-- Flood Section -->
+                <div class="col-md-3 mb-4 d-flex align-items-stretch">
+                    <div class="daily-data card bg-danger text-white w-100 shadow-lg rounded">
+                        <div class="card-body p-4 d-flex flex-column align-items-center">
+                            <h2 class="card-title mb-3">Flood Chances</h2>
+                            <i class="fas fa-water fa-3x mb-3"></i>
+                            <div class="value">
+                                <h4 class="mb-3">{{ flood_result }}</span></h4>
+                                <p class="card-text">Last 24 hours at your location</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+ v    
+                <!-- Earthquake Section -->
+                <div class="col-md-3 mb-4 d-flex align-items-stretch">
+                    <div class="daily-data card bg-dark text-white w-100 shadow-lg rounded">
+                        <div class="card-body p-4 d-flex flex-column align-items-center">
+                            <h2 class="card-title mb-3 fs-4">Earthquake Chances</h2>
+                            <i class="fas fa-globe-americas fa-3x mb-3"></i>
+                            <div class="value">
+                                <p class="card-text">{{ earthquake_result[0]}}</p>
+
+                                <h4 class="mb-0">{{earthquake_result[1]}}<span></span></h4>
+                                <p class="card-text">{{earthquake_result[2]}}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tsunami Section -->
+                <div class="col-md-3 mb-4 d-flex align-items-stretch">
+                    <div class="daily-data card bg-dark text-white w-100 shadow-lg rounded">
+                        <div class="card-body p-4 d-flex flex-column align-items-center">
+                            <h2 class="card-title mb-3 fs-4">Tsunami Chances</h2>
+                            <i class="fas fa-globe-americas fa-3x mb-3"></i>
+                            <div class="value">
+                                <p class="card-text">{{ tsunami_result[0] }}</p>
+
+                                <h4 class="mb-0">{{tsunami_result[1]}}<span></span></h4>
+                                <p class="card-text">{{tsunami_result[2]}}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- Cyclone Section -->
+                <div class="col-md-3 mb-4 d-flex align-items-stretch">
+                    <div class="daily-data card bg-warning text-white w-100 shadow-lg rounded">
+                        <div class="card-body p-4 d-flex flex-column align-items-center">
+                            <h2 class="card-title mb-3">Cyclone Alert</h2>
+                            <i class="fas fa-hurricane fa-3x mb-3"></i>
+                            <div class="value">
+                                <h4 class="mb-3">{{ tornado_result }}<span></span></h4>
+                                <p class="card-text">Last 24 hours at your location</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Landslide Section -->
+                <div class="col-md-3 mb-4 d-flex align-items-stretch">
+                    <div class="daily-data card bg-warning text-white w-100 shadow-lg rounded">
+                        <div class="card-body p-4 d-flex flex-column align-items-center">
+                            <h2 class="card-title mb-3">Landslide Alert</h2>
+                            <i class="fas fa-area-chart fa-3x mb-3"></i>
+                            <div class="value">
+                                <h4 class="mb-0">{{ landslide_result }}<span></span></h4>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- 24hrs Rain Data -->
+                <div class="col-md-3 mb-4 d-flex align-items-stretch">
+                    <div class="daily-data card bg-warning text-white w-100 shadow-lg rounded">
+                        <div class="card-body p-4 d-flex flex-column align-items-center">
+                            <h2 class="card-title mb-3">Rain</h2>
+                            <i class="fas fa-tint fa-3x mb-3"></i>
+                            <div class="value">
+                                <h4 class="mb-0"> {{ today_rain }} <span>cm</span></h4>
+                                <p class="card-text mt-1">Last 24 Hours</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% if session.get('user_id') %}
+
+        {% if (flood_result == "flood" or 
+                (earthquake_result and earthquake_result[1] > 6) or 
+                (tsunami_result and tsunami_result[1] > 6.9) or 
+                landslide_result == "Landslide" or 
+                tornado_result == "Considerable Cyclone") %}
+        <div class="container text-center mt-4">
+            <div class="row justify-content-center">
+                <div class="col-md-8">
+                    <div class="alert alert-danger mb-3">
+                        Emergency Conditions Detected
+                    </div>
+                    <div class="d-flex justify-content-center gap-3">
+                        <a href="/Sos" class="btn btn-danger btn-lg">
+                            <i class="bi bi-exclamation-triangle-fill me-2"></i>Emergency SOS
+                        </a>
+                        <a href="/map" class="btn btn-primary btn-lg">
+                            <i class="bi bi-map-fill me-2"></i>View Emergency Map
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% else %}
+        <div class="container text-center mt-4">
+            <div class="row justify-content-center">
+                <div class="col-md-6">
+                    <a href="#" class="btn btn-primary btn-lg">
+                        <i class="bi bi-box-arrow-in-right me-2"></i> NO Emergency Conditions Detected
+                    </a>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+
+        {% else %}
+        <div class="container text-center mt-4">
+            <div class="row justify-content-center">
+                <div class="col-md-6">
+                    <a href="#" class="btn btn-primary btn-lg">
+                        <i class="bi bi-box-arrow-in-right me-2"></i> GO TO SIGN IN
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        {% endif %}
+
+
+
+        <!--chat box-->
+        <div id="chat-icon">
+            <i class="fas fa-comment"></i>
+        </div>
+            <div id="chat" class="bg-dark xl ">
+                <div id="header" class="bg-danger text-white text-center p-3">
+                    <h2 id="disaster-response-chat" class="mb-0 ">Disaster Response Chat</h2>
+                </div>
+        
+                <div id="messages"></div>
+        
+                <div id="input-area" class="p-3 border-top">
+                    <div class="input-group">
+                        <input type="text" id="message-input" class="form-control" placeholder="Type a message...">
+                        <button class="btn btn-outline-secondary" type="button" id="file-button">
+                            <i class="fas fa-paperclip"></i>
+                        </button>
+                        <button class="btn btn-outline-secondary" type="button" id="voice-button">
+                            <i class="fas fa-microphone"></i>
+                        </button>
+                        <button class="btn btn-outline-secondary" type="button" id="location-button">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </button>
+                        <button class="btn btn-success" type="button" id="send-button">Send</button>
+                    </div>
+                    <input type="file" id="file-input" style="display: none" accept="image/*,video/*">
+                </div>
+            </div>
+        
+
+    <!-- Image Modal -->
+<div id="imageModal" class="image-modal">
+    <span class="close-modal">&times;</span>
+    <img id="modalImage">
+</div>
+
+<section id="about" class="about mt-5">
+    <div class="container">
+        <h1>About Us</h1>
+        <p>Welcome to <strong>Your Website Name</strong>, your trusted source for disaster prediction and preparedness.</p>
+        <p>At <strong>Your Website Name</strong>, we are dedicated to providing accurate, real-time insights into potential natural and man-made disasters. Using advanced algorithms, data analysis, and historical patterns, our goal is to help individuals, families, and organizations stay informed and ready in the face of emergencies.</p>
+
+        <h2>Our Mission</h2>
+        <p>Our mission is simple: <strong>to empower communities to act before disaster strikes</strong>. By offering reliable disaster prediction tools and early warning systems, we aim to reduce loss, prevent damage, and save lives. We believe that with the right information, people can take proactive steps to protect themselves, their loved ones, and their assets.</p>
+
+        <h2>What We Do</h2>
+        <p>Our platform leverages cutting-edge technology to analyze disaster risks, from earthquakes and hurricanes to floods and wildfires. We provide:</p>
+        <ul>
+            <li><strong>Real-Time Alerts:</strong> Stay updated with live notifications and forecasts about potential disasters in your area.</li>
+            <li><strong>Prediction Models:</strong> Our predictive models give you advanced warnings about natural hazards, helping you prepare ahead of time.</li>
+            <li><strong>Preparedness Resources:</strong> Access guides, tips, and tools to help you create emergency plans, gather supplies, and stay safe during a disaster.</li>
+            <li><strong>Data Insights:</strong> We offer detailed analyses and reports on disaster trends, so you can understand the risks you face and take informed action.</li>
+        </ul>
+
+        <h2>Why Choose Us?</h2>
+        <p>We understand the importance of timely, reliable information in disaster situations. Our team of experts, including meteorologists, data scientists, and emergency response specialists, work tirelessly to ensure that the information we provide is accurate and actionable.</p>
+        <p>Your safety is our priority, and we strive to make disaster prediction accessible and understandable for everyone.</p>
+    </div>
+</section>
+
+
+
+
+<script>
+    // Add this JavaScript
+    function updateLocationStatus() {
+        const locationCircle = document.querySelector('.location-circle');
+        
+        // Check emergency conditions
+        const hasEmergency = 
+            '{{ flood_result }}' === 'flood' ||
+            ({{ earthquake_result[1] if earthquake_result else 0 }} > 6) ||
+            ({{ tsunami_result[1] if tsunami_result else 0 }} > 6.9) ||
+            '{{ landslide_result }}' === 'Landslide' ||
+            '{{ tornado_result }}' === 'Considerable Cyclone';
+    
+        // Update circle state
+        if (hasEmergency) {
+            locationCircle.classList.add('emergency');
+        } else {
+            locationCircle.classList.remove('emergency');
+        }
+    }
+    
+    // Run on page load
+    document.addEventListener('DOMContentLoaded', updateLocationStatus);
+    </script>
+    Last edited just n
+    // Run on page load
+    document.addEventListener('DOMContentLoaded', updateLocationStatus);
+    </script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
+    <script src="./static/chat.js" ></script>
+
+    
+
+</body>
+
+</html>

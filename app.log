@@ -1,0 +1,30 @@
+2024-12-19 12:23:18,998 - WARNING -  * Debugger is active!
+2024-12-19 12:23:19,002 - INFO -  * Debugger PIN: 283-993-638
+2024-12-19 12:23:20,920 - INFO - 127.0.0.1 - - [19/Dec/2024 12:23:20] "GET /socket.io/?EIO=4&transport=polling&t=PFTiIy8 HTTP/1.1" 200 -
+2024-12-19 12:23:20,935 - INFO - 127.0.0.1 - - [19/Dec/2024 12:23:20] "POST /socket.io/?EIO=4&transport=polling&t=PFTiJwT&sid=b3HXj6y_W6MIPXv7AAAA HTTP/1.1" 200 -
+2024-12-19 12:23:20,946 - INFO - 127.0.0.1 - - [19/Dec/2024 12:23:20] "GET /socket.io/?EIO=4&transport=polling&t=PFTiJwe&sid=b3HXj6y_W6MIPXv7AAAA HTTP/1.1" 200 -
+2024-12-19 12:25:26,568 - INFO -  * Detected change in 'c:\\Users\\USER\\Desktop\\emergency\\emergency\\web\\emergency.py', reloading
+2024-12-19 12:25:29,393 - WARNING -  * Debugger is active!
+2024-12-19 12:25:29,393 - INFO -  * Debugger PIN: 283-993-638
+2024-12-19 12:25:30,858 - INFO - 127.0.0.1 - - [19/Dec/2024 12:25:30] "GET /socket.io/?EIO=4&transport=polling&t=PFTipAe HTTP/1.1" 200 -
+2024-12-19 12:25:30,874 - INFO - 127.0.0.1 - - [19/Dec/2024 12:25:30] "POST /socket.io/?EIO=4&transport=polling&t=PFTipey&sid=gdKcEGQeW4LmcTIUAAAA HTTP/1.1" 200 -
+2024-12-19 12:25:30,889 - INFO - 127.0.0.1 - - [19/Dec/2024 12:25:30] "GET /socket.io/?EIO=4&transport=polling&t=PFTipe-&sid=gdKcEGQeW4LmcTIUAAAA HTTP/1.1" 200 -
+2024-12-19 12:25:58,723 - INFO -  * Detected change in 'C:\\Users\\USER\\Desktop\\emergency\\emergency\\web\\emergency.py', reloading
+2024-12-19 12:26:01,883 - WARNING -  * Debugger is active!
+2024-12-19 12:26:01,899 - INFO -  * Debugger PIN: 283-993-638
+2024-12-19 12:26:03,533 - INFO - 127.0.0.1 - - [19/Dec/2024 12:26:03] "GET /socket.io/?EIO=4&transport=polling&t=PFTiw-g HTTP/1.1" 200 -
+2024-12-19 12:26:03,533 - INFO - 127.0.0.1 - - [19/Dec/2024 12:26:03] "POST /socket.io/?EIO=4&transport=polling&t=PFTixdI&sid=Fg_n6E7CuGe30TaiAAAA HTTP/1.1" 200 -
+2024-12-19 12:26:03,551 - INFO - 127.0.0.1 - - [19/Dec/2024 12:26:03] "GET /socket.io/?EIO=4&transport=polling&t=PFTixdL&sid=Fg_n6E7CuGe30TaiAAAA HTTP/1.1" 200 -
+2024-12-19 12:33:15,677 - INFO -  * Detected change in 'C:\\Users\\USER\\Desktop\\emergency\\emergency\\web\\emergency.py', reloading
+2024-12-19 12:33:19,273 - WARNING -  * Debugger is active!
+2024-12-19 12:33:19,273 - INFO -  * Debugger PIN: 283-993-638
+2024-12-19 12:33:21,017 - INFO - 127.0.0.1 - - [19/Dec/2024 12:33:21] "GET /socket.io/?EIO=4&transport=polling&t=PFTkbRJ HTTP/1.1" 200 -
+2024-12-19 12:33:21,034 - INFO - 127.0.0.1 - - [19/Dec/2024 12:33:21] "POST /socket.io/?EIO=4&transport=polling&t=PFTkcR4&sid=b1_WSVadDzn0G1yFAAAA HTTP/1.1" 200 -
+2024-12-19 12:33:21,044 - INFO - 127.0.0.1 - - [19/Dec/2024 12:33:21] "GET /socket.io/?EIO=4&transport=polling&t=PFTkcR6&sid=b1_WSVadDzn0G1yFAAAA HTTP/1.1" 200 -
+2024-12-19 12:33:40,390 - INFO -  * Detected change in 'C:\\Users\\USER\\Desktop\\emergency\\emergency\\web\\emergency.py', reloading
+2024-12-19 12:34:26,790 - WARNING -  * Debugger is active!
+2024-12-19 12:34:26,806 - INFO -  * Debugger PIN: 283-993-638
+2024-12-19 12:34:28,813 - INFO - 127.0.0.1 - - [19/Dec/2024 12:34:28] "GET /socket.io/?EIO=4&transport=polling&t=PFTks1j HTTP/1.1" 200 -
+2024-12-19 12:34:28,824 - INFO - 127.0.0.1 - - [19/Dec/2024 12:34:28] "POST /socket.io/?EIO=4&transport=polling&t=PFTks-H&sid=Dcvw-Cb2GCNdCztyAAAA HTTP/1.1" 200 -
+2024-12-19 12:34:28,826 - INFO - 127.0.0.1 - - [19/Dec/2024 12:34:28] "GET /socket.io/?EIO=4&transport=polling&t=PFTks-L&sid=Dcvw-Cb2GCNdCztyAAAA HTTP/1.1" 200 -
+2024-12-19 12:34:30,438 - INFO -  * Detected change in 'c:\\Users\\USER\\Desktop\\emergency\\emergency\\web\\emergency.py', reloading

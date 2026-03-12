@@ -1,0 +1,97 @@
+:root {
+    --user-location-color: #18e94c;
+}
+/* Map container styles */
+.map-container {
+    position: relative;
+    width: 100%;
+    height: 380px;
+    background: #1a1a1a;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+#map {
+    position: absolute !important;
+    top: 0;
+    left: 0;
+    width: 100% !important;
+    height: 100% !important;
+    border-radius: 15px;
+}
+
+/* Control styles */
+.mapboxgl-control-container {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+}
+
+.mapboxgl-ctrl-group {
+    background: rgba(35, 35, 35, 0.9) !important;
+    border: none !important;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    margin: 10px;
+}
+
+.mapboxgl-ctrl-group button {
+    background-color: transparent !important;
+    border: none !important;
+    color: white !important;
+    width: 30px;
+    height: 30px;
+}
+
+.mapboxgl-ctrl-icon {
+    filter: invert(1);
+}
+
+/* Custom user location dot */
+.mapboxgl-user-location-dot {
+    background-color: rgb(13, 84, 238);
+}
+
+.mapboxgl-user-location-dot:before {
+    background-color: var(--user-location-color);
+    width: 15px;
+    height: 15px;
+    transition: background-color 0.3s ease;
+}
+
+.mapboxgl-user-location-dot:after {
+    width: 15px;
+    height: 15px;
+}
+
+/* Remove attribution */
+.mapboxgl-ctrl-bottom-right,
+.mapboxgl-ctrl-bottom-left {
+    display: none;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1200px) {
+    .map-container {
+        height: 500px;
+    }
+}
+
+@media (max-width: 992px) {
+    .map-container {
+        height: 450px;
+    }
+}
+
+@media (max-width: 768px) {
+    .map-container {
+        height: 400px;
+    }
+}
+
+/* Remove previous grid elements */
+.grid-background,
+.grid,
+.location-circle {
+    display: none;
+}

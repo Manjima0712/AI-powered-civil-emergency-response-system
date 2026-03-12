@@ -1,0 +1,148 @@
+#chat-icon {
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    width: 50px;
+    height: 50px;
+    background-color: #eeeeee;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+    z-index: 1000;
+
+}
+
+#chat-icon i {
+    color: rgb(255, 0, 0);
+    font-size: 24px;
+}
+
+#chat {
+    position: fixed;
+    right: 20px;
+    bottom: 80px;
+    max-width: 60vh;
+    max-height: 60vh;
+    display: none;
+    flex-direction: column;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    overflow: hidden;
+    z-index: 999;
+    background-color: #091b2bc4 !important;
+}
+
+#messages {
+    height: calc(100vh - 180px);
+    overflow-y: auto;
+    padding: 20px;
+}
+
+.message {
+    margin-bottom: 15px;
+    padding: 10px;
+    border-radius: 10px;
+    max-width: 70%;
+}
+
+.message-own {
+    background-color: #092a47;
+    border: 1px groove #666;
+    color: white;
+    margin-left: auto;
+}
+
+.message-other {
+    background-color: #003b6e;
+    color: rgb(255, 255, 255);
+    border: #a5a5a5 1px groove;
+}
+
+.timestamp {
+    font-size: 0.7em;
+    color: #949494;
+}
+
+.message-own .timestamp {
+    color: #a5a5a5;
+}
+
+.media-content {
+    max-width: 300px;
+    margin: 10px 0;
+}
+
+.media-content img {
+    max-width: 100%;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.media-content video {
+    max-width: 100%;
+    border-radius: 8px;
+}
+
+/* Fullscreen image modal */
+.image-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.9);
+    z-index: 1000;
+}
+
+.image-modal img {
+    max-width: 90%;
+    max-height: 90vh;
+    margin: auto;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.close-modal {
+    position: absolute;
+    right: 25px;
+    top: 25px;
+    color: #f1f1f1;
+    font-size: 40px;
+    cursor: pointer;
+}
+
+.chat-icon {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    z-index: 1000;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+#chat-icon:hover {
+    transform: scale(1.1);
+}
+.modal-content{
+    background-color: #003e74d3 !important;
+    color: white;
+    box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.753);
+
+}
+.modal-header{
+    display: flex;
+    justify-content: center;
+}
+.modal-title{
+    font-size: 1.5em;
+}
+.audio{
+   max-width:250px;
+}
+

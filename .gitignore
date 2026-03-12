@@ -1,0 +1,9 @@
+*.pkl
+*.joblib
+*.h5
+__pycache__/
+.env
+uploads/
+instance/
+user_database.db
+app.log

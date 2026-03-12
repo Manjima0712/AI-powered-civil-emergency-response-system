@@ -1,0 +1,13 @@
+Flask
+Flask-Cors
+Flask-SocketIO
+Flask-SQLAlchemy
+Werkzeug
+pandas
+numpy
+joblib
+requests
+twilio
+python-dotenv
+email-validator
+eventlet
